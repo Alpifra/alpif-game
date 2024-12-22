@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    <button>Ajouter un message</button>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>/Users/alec/Documents/Pro/Local-dev/alpif-game/code/symfony/src/Controller/HomeController.php</code></li>
+        <li>Your template at <code>/Users/alec/Documents/Pro/Local-dev/alpif-game/code/symfony/templates/home/index.html.twig</code></li>
+    </ul>
+</div>
+
+<script>
+    // Then some JavaScript in the browser:
+    let socket = new WebSocket('wss://ws.alexandrechauvin.fr/echo');
+    let list = document.querySelector('ul');
+    let button = document.querySelector('button');
+
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+
+        socket.send('Kikou');
+    });
+
+    socket.onmessage = function(e) { console.log(e.data); };
+    socket.onopen = function(e) { socket.send('Hello Me!'); };
+</script>
+{% endblock %}
