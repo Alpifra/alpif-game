@@ -1,5 +1,6 @@
 # Local dev
 Makefile
+docker/db
 
 # Symfony
 code/symfony/.env
