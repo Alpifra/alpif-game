@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Config\QuestionType;
+use App\Config\QuestionEnum;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,8 +16,8 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(enumType: QuestionType::class)]
-    private QuestionType $type;
+    #[ORM\Column(enumType: QuestionEnum::class)]
+    private QuestionEnum $type;
 
     #[ORM\Column]
     private int $position;
@@ -33,12 +33,12 @@ class Question
         return $this->id;
     }
 
-    public function getType(): QuestionType
+    public function getType(): QuestionEnum
     {
         return $this->type;
     }
 
-    public function setType(QuestionType $type): static
+    public function setType(QuestionEnum $type): static
     {
         $this->type = $type;
 

@@ -2,7 +2,7 @@
 
 namespace App\Config;
 
-enum QuestionType: string
+enum QuestionEnum: string
 {
 
     case single   = "Multiple propositions - single answer";

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Config\AvatarType;
+use App\Config\AvatarEnum;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,8 +19,8 @@ class Player
     #[ORM\Column(length: 50)]
     private string $username;
 
-    #[ORM\Column(enumType: AvatarType::class)]
-    private AvatarType $avatar;
+    #[ORM\Column(enumType: AvatarEnum::class)]
+    private AvatarEnum $avatar;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
     #[ORM\JoinColumn(nullable: false)]
@@ -43,12 +43,12 @@ class Player
         return $this;
     }
 
-    public function getAvatar(): AvatarType
+    public function getAvatar(): AvatarEnum
     {
         return $this->avatar;
     }
 
-    public function setAvatar(AvatarType $avatar): static
+    public function setAvatar(AvatarEnum $avatar): static
     {
         $this->avatar = $avatar;
 
