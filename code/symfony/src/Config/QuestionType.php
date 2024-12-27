@@ -1,5 +1,7 @@
 <?php 
 
+namespace App\Config;
+
 enum QuestionType: string
 {
 

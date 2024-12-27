@@ -18,10 +18,10 @@ class Session
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $hash = null;
+    private string $hash;
 
     #[ORM\Column]
-    private ?int $stage = null;
+    private int $stage;
 
     /**
      * @var Collection<int, Player>
@@ -39,7 +39,7 @@ class Session
         return $this->id;
     }
 
-    public function getHash(): ?string
+    public function getHash(): string
     {
         return $this->hash;
     }
@@ -51,7 +51,7 @@ class Session
         return $this;
     }
 
-    public function getStage(): ?int
+    public function getStage(): int
     {
         return $this->stage;
     }

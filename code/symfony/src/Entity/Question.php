@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Config\QuestionType;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
-use QuestionType;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 #[ApiResource]
@@ -17,10 +17,10 @@ class Question
     private ?int $id = null;
 
     #[ORM\Column(enumType: QuestionType::class)]
-    private ?QuestionType $type = null;
+    private QuestionType $type;
 
     #[ORM\Column]
-    private ?int $position = null;
+    private int $position;
 
     #[ORM\Column]
     private array $content = [];
@@ -33,7 +33,7 @@ class Question
         return $this->id;
     }
 
-    public function getType(): ?QuestionType
+    public function getType(): QuestionType
     {
         return $this->type;
     }

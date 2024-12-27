@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Config\AvatarType;
 use App\Repository\PlayerRepository;
-use AvatarType;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
@@ -17,10 +17,10 @@ class Player
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $username = null;
+    private string $username;
 
     #[ORM\Column(enumType: AvatarType::class)]
-    private ?AvatarType $avatar = null;
+    private AvatarType $avatar;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
     #[ORM\JoinColumn(nullable: false)]
@@ -31,7 +31,7 @@ class Player
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -43,7 +43,7 @@ class Player
         return $this;
     }
 
-    public function getAvatar(): ?AvatarType
+    public function getAvatar(): AvatarType
     {
         return $this->avatar;
     }
@@ -55,7 +55,7 @@ class Player
         return $this;
     }
 
-    public function getSession(): ?Session
+    public function getSession(): Session
     {
         return $this->session;
     }
