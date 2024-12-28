@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alpifra Game !{% endblock %}
+
+{% block body %}
+
+<div class="main login">
+    <div class="login-title">
+        <h1>Quizz 2024</h1>
+        <p>Qui va devenir le GOAT de 2024 ?</p>
+    </div>
+    <div class="login-container">
+        {{ form_start(formJoin, { action: path('app_join_session') }) }}
+        {{ form_row(formJoin.avatar) }}
+        {{ form_row(formJoin.username) }}
+        {{ form_row(formJoin.session) }}
+        <button type="submit" class="btn">REJOINDRE</button>
+        {{ form_end(formJoin) }}
+        {{ form_start(formCreate, { action: path('app_create_session') }) }}
+        {{ form_row(formCreate.avatar) }}
+        {{ form_row(formCreate.username) }}
+        <button type="submit" class="btn">CRÉER</button>
+        {{ form_end(formCreate) }}
+    </div>
+</div>
+
+{% endblock %}

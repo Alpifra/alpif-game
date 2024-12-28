@@ -20,8 +20,8 @@ class Session
     #[ORM\Column(length: 50)]
     private string $hash;
 
-    #[ORM\Column]
-    private int $stage;
+    #[ORM\Column(options: ['default' => 0])]
+    private int $stage = 0;
 
     /**
      * @var Collection<int, Player>
