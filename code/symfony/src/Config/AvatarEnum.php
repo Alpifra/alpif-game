@@ -5,6 +5,8 @@ namespace App\Config;
 enum AvatarEnum: string
 {
 
-    case monkey = "/monkey.png";
+    case fish   = "/fish.jpg";
+    case lion   = "/lion.jpg";
+    case monkey = "/monkey.jpg";
 
 }

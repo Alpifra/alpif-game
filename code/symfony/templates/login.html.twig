@@ -5,20 +5,34 @@
 {% block body %}
 
 <div class="main login">
-    <div class="login-title">
+    <div class="title ogin-title">
         <h1>Quizz 2024</h1>
         <p>Qui va devenir le GOAT de 2024 ?</p>
     </div>
-    <div class="login-container">
+    <div class="container login-container">
         {{ form_start(formJoin, { action: path('app_join_session') }) }}
-        {{ form_row(formJoin.avatar) }}
+        <div class="login-avatar-select">
+            <div
+                class="login-avatar"
+                data-controller="login"
+                data-avatars="{{ enum('App\\Config\\AvatarEnum').cases|json_encode }}"
+                data-current="{{ enum('App\\Config\\AvatarEnum').value }}"
+            >
+                <svg data-action="click->login#prevAvatar" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 6s-6 4.419-6 6s6 6 6 6" color="currentColor"/></svg>
+                <div class="avatar">
+                    <img src="img{{ enum('App\\Config\\AvatarEnum').value }}" />
+                </div>
+                <svg data-action="click->login#nextAvatar" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 6s6 4.419 6 6s-6 6-6 6" color="currentColor"/></svg>
+            </div>
+        </div>
+        {{ form_row(formJoin.avatar, { attr: { class: 'avatar-input', hidden: true } }) }}
         {{ form_row(formJoin.username) }}
         {{ form_row(formJoin.session) }}
         <button type="submit" class="btn">REJOINDRE</button>
         {{ form_end(formJoin) }}
         {{ form_start(formCreate, { action: path('app_create_session') }) }}
-        {{ form_row(formCreate.avatar) }}
-        {{ form_row(formCreate.username) }}
+        {{ form_row(formCreate.avatar, { attr: { class: 'avatar-input', hidden: true } }) }}
+        {{ form_row(formCreate.username, { attr: { hidden: true } }) }}
         <button type="submit" class="btn">CRÉER</button>
         {{ form_end(formCreate) }}
     </div>

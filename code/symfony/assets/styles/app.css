@@ -1,3 +1,177 @@
+:root {
+    --liblue: #b6f6f5;
+    --blue: #08D9D6;
+    --red: #FF2E63;
+    --lidark: #8392b5;
+    --dark: #252A34;
+    --light: #EAEAEA;
+    --white: #FFF;
+
+    --radius: 4px;
+}
+
 body {
-    background-color: skyblue;
+    margin: 0;
+    background: var(--dark);
+}
+
+.main {
+    padding: 0 .5rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-family: "Hi Melody", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 2rem;
+}
+
+* {
+    font-family: "Mada", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+button {
+    background-color: var(--blue);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+button:active {
+    background-color: var(--liblue);
+}
+
+input,
+button {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: .2rem;
+    font-size: 1.2rem;
+    padding: .2rem .5rem;
+    color: var(--dark);
+}
+
+input[type="number"],
+input[type="date"],
+input[type="text"] {
+    font-family: "Hi Melody", sans-serif;
+    border: 2px solid var(--lidark);
+    border-radius: var(--radius);
+}
+
+input:active,
+input:focus,
+input:focus-visible {
+    border: 2px solid var(--liblue);
+    outline: none;
+}
+
+label {
+    display: none;
+}
+
+.container {
+    padding: .5rem;
+    background-color: var(--light);
+    border: 1px solid var(--light);
+    border-radius: var(--radius);
+    width: 60vw;
+}
+
+.title h1,
+.title p {
+    color: var(--light);
+    text-align: center;
+    margin-block: .2rem;
+}
+
+/* LOGIN */
+.login-title {
+    margin-bottom: 1rem;
+}
+
+.login-avatar-select {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.login-avatar svg {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.login-avatar svg:first-child {
+    left: calc(50% - 100px);
+    transform: translateX(-50%);
+}
+
+.login-avatar svg:last-child {
+    right: calc(50% - 100px);
+    transform: translateX(50%);
+}
+
+.login-avatar .avatar {
+    width: 150px;
+    height: 150px;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.login-avatar .avatar img {
+    position: absolute;
+    box-sizing: border-box;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* LOBBY */
+.lobby .slots {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: .5rem;
+}
+
+.lobby .slot .slot-image {
+    background-color: var(--lidark);
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+}
+
+.lobby .slot .slot-image img {
+    position: absolute;
+    box-sizing: border-box;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.lobby .slot .slot-username {
+    text-align: center;
+    width: 50px;
+    margin: 0 auto;
+    background-color: var(--white);
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
