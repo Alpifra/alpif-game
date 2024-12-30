@@ -5,8 +5,34 @@
 {% block body %}
 
 <div class="main lobby">
-    <div class="lobby-title">
-        <h1>Lobby</h1>
+    <div class="title lobby-title">
+        <h1>Lobby...</h1>
+        <p><span id="lobbyCount">{{ players.count }}</span>/18 joueur(s)</p>
+    </div>
+    <div
+        class="container lobby-container"
+        data-controller="lobby"
+        data-username="{{ currentPlayer.username }}"
+        data-avatar="{{ currentPlayer.avatar.value }}"
+    >
+        <div class="slots">
+        {% for index in range(0, 17) %}
+            <div class="slot {{ players[index] is defined ? null : 'empty' }}">
+                <div class="slot-image">
+                    {% if players[index] is defined %}
+                        <img src="/img{{ players[index].avatar.value }}" />
+                    {% endif %}
+                </div>
+                <div class="slot-username">
+                    {% if players[index] is defined %}
+                        {{ players[index].username }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     </div>
 </div>
 

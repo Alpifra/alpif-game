@@ -47,7 +47,10 @@ class LoginController extends AbstractController
             $this->entityManager->persist($session);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_lobby');
+            return $this->redirectToRoute(
+                'app_lobby',
+                ['hash' => $session->getHash(), 'username' => $player->getUsername()]
+            );
         } else {
 
             return $this->redirectToRoute('app_login');
@@ -72,7 +75,10 @@ class LoginController extends AbstractController
             $this->entityManager->persist($session);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_lobby');
+            return $this->redirectToRoute(
+                'app_lobby',
+                ['hash' => $session->getHash(), 'username' => $player->getUsername()]
+            );
         } else {
 
             return $this->redirectToRoute('app_login');
