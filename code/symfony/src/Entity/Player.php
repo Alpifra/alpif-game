@@ -26,6 +26,12 @@ class Player
     #[ORM\JoinColumn(nullable: false)]
     private ?Session $session = null;
 
+    #[ORM\Column(options: ['default' => false])]
+    private bool $master = false;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private int $score = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +69,30 @@ class Player
     public function setSession(?Session $session): static
     {
         $this->session = $session;
+
+        return $this;
+    }
+
+    public function isMaster(): bool
+    {
+        return $this->master;
+    }
+
+    public function setMaster(bool $master): static
+    {
+        $this->master = $master;
+
+        return $this;
+    }
+
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    public function setScore(int $score): static
+    {
+        $this->score = $score;
 
         return $this;
     }

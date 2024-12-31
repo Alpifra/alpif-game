@@ -7,6 +7,7 @@ use App\Form\PlayerCreateType;
 use App\Form\PlayerJoinType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -47,10 +48,10 @@ class LoginController extends AbstractController
             $this->entityManager->persist($session);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute(
-                'app_lobby',
-                ['hash' => $session->getHash(), 'username' => $player->getUsername()]
-            );
+            $response =  $this->redirectToRoute('app_lobby', ['hash' => $session->getHash()]);
+            $response->headers->setCookie(new Cookie('player', $player->getUsername(), time() * 3600 * 24));
+
+            return $response;
         } else {
 
             return $this->redirectToRoute('app_login');
@@ -66,6 +67,7 @@ class LoginController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $player = $form->getData();
+            $player->setMaster(true);
 
             $session = new Session;
             $session->setHash(hash('crc32', time()));
@@ -75,10 +77,10 @@ class LoginController extends AbstractController
             $this->entityManager->persist($session);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute(
-                'app_lobby',
-                ['hash' => $session->getHash(), 'username' => $player->getUsername()]
-            );
+            $response =  $this->redirectToRoute('app_lobby', ['hash' => $session->getHash()]);
+            $response->headers->setCookie(new Cookie('player', $player->getUsername(), time() * 3600 * 24));
+
+            return $response;
         } else {
 
             return $this->redirectToRoute('app_login');

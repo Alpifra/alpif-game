@@ -2,6 +2,7 @@
     --liblue: #b6f6f5;
     --blue: #08D9D6;
     --red: #FF2E63;
+    --gold: #a48927;
     --lidark: #8392b5;
     --dark: #252A34;
     --light: #EAEAEA;
@@ -86,6 +87,7 @@ label {
     border: 1px solid var(--light);
     border-radius: var(--radius);
     width: 60vw;
+    max-width: 400px;
 }
 
 .title h1,
@@ -141,8 +143,12 @@ label {
 .lobby .slots {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: .5rem;
+}
+
+.lobby .slot {
+    position: relative;
 }
 
 .lobby .slot .slot-image {
@@ -175,4 +181,17 @@ label {
     background-color: var(--white);
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
+}
+
+.lobby .slot.current .slot-username {
+    background-color: var(--dark);
+    color: var(--white);
+}
+
+.lobby .slot .master-icon {
+    position: absolute;
+    color: var(--gold);
+    top: -8px;
+    right: 0;
+    width: 1rem;
 }

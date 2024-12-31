@@ -16,11 +16,23 @@ export default class extends Controller {
         this.username = username
 
         socket.onmessage = (event) => {
-            this.updateLobby(event.data);
+            if (event.data === 'start') {
+                this.startGame();
+            } else {
+                this.updateLobby(event.data);
+            }
         };
 
         setTimeout(() => {
             socket.send(JSON.stringify({ avatar: avatar, username: username }));
+        }, 500);
+    }
+
+    start() {
+        const socket = new WebSocket('ws://localhost:8080/lobby');
+
+        setTimeout(() => {
+            socket.send('start');
         }, 500);
     }
 
@@ -52,6 +64,10 @@ export default class extends Controller {
 
         // update new user username
         slot.querySelector('.slot-username').textContent = newUser.username;
+    }
+
+    startGame() {
+        location.assign(location.href + '/question');
     }
 
 }
