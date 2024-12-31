@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Player;
 use App\Entity\Session;
 use App\Repository\PlayerRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
@@ -31,6 +30,7 @@ class LobbyController extends AbstractController
         ]);
 
         return $this->render('lobby.html.twig', [
+            'session'       => $session,
             'players'       => $session->getPlayers(),
             'currentPlayer' => $currentPlayer,
         ]);

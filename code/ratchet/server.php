@@ -48,5 +48,5 @@ $port = $_ENV['PORT'] ?? 8080;
 // Run the server application through the WebSocket protocol on env port
 $app = new Ratchet\App($server, $port);
 $app->route('/lobby', new MyChat, array('*'));
-$app->route('/quizz', new MyChat, array('*'));
+$app->route('/game', new MyChat, array('*'));
 $app->run();

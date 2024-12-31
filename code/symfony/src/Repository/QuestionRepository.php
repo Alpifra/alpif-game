@@ -15,4 +15,21 @@ class QuestionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Question::class);
     }
+
+    /**
+     * Find the question by it position
+     *
+     * @param  int $position
+     * @return Question
+     */
+    public function findOneByPosition(int $position): ?Question
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.position', 'ASC')
+            ->where('e.position > :position')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->setParameter('position', $position)
+            ->getOneOrNullResult();
+    }
 }

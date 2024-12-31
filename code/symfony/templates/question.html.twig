@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuestionController!{% endblock %}
+
+{% block body %}
+
+<div class="main game" data-controller="game">
+    <div class="title game-title">
+        <h1>Question {{ question.position }}</h1>
+    </div>
+
+    {% if currentPlayer.master %}
+        <div class="container game-container">
+            <p>{{ question.content['question'] }}</p>
+            <form action="/lobby/{{ session.hash }}/next">
+                <input type="hidden" name="question" value="{{ question.id }}">
+                <input type="hidden" name="player" value="{{ currentPlayer.id }}">
+            </form>
+            <ul>
+                {% for answer in question.answers %}
+                    <li class="question {{ answer.valid ? 'valid' : null }}">
+                        {{ answer.answer }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button data-action="click->game#validate">VALIDER</button>
+        </div>
+    {% else %}
+        <div class="answer-container">
+            <form action="/lobby/{{ session.hash }}/next">
+                <div class="answers">
+                        {% for key, answer in question.answers %}
+                            <input type="radio" name="answer" id="answer{{ key }}" value="{{ answer.answer }}">
+                            <label for="answer{{ key }}" class="answer">{{ answer.answer }}</label>
+                        {% endfor %}
+                        <input type="hidden" name="question" value="{{ question.id }}">
+                        <input type="hidden" name="player" value="{{ currentPlayer.id }}">
+                </div>
+            </form>
+        </div>
+    {% endif %}
+</div>
+
+<div class="second">
+    <div class="container leaderboard-container">
+        <h2>LEADERBOARD</h2>
+        <table cellspacing="0" cellpadding="0" class="leaderboard">
+            <tr>
+                <th>Position</th>
+                <th>Joueur</th>
+                <th>Score</th>
+            </tr>
+            {% for index, player in players %}
+            <tr class="{{ index == 0 ? 'first' : null }} {{ players[0].score == player.score ? 'draw' : null }}">
+                <td class="leaderboard-position">{{ index + 1 }}
+                <td class="leaderboard-username">{{ player.username }}</td>
+                <td class="leaderboard-username">{{ player.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

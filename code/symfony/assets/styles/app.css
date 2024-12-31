@@ -2,6 +2,7 @@
     --liblue: #b6f6f5;
     --blue: #08D9D6;
     --red: #FF2E63;
+    --green: #2fda6e;
     --gold: #a48927;
     --lidark: #8392b5;
     --dark: #252A34;
@@ -9,6 +10,7 @@
     --white: #FFF;
 
     --radius: 4px;
+    --transition: .2s;
 }
 
 body {
@@ -19,6 +21,14 @@ body {
 .main {
     padding: 0 .5rem;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.second {
+    padding: 0 .5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,6 +89,15 @@ input:focus-visible {
 
 label {
     display: none;
+}
+
+table {
+    width: 100%;
+    border: none;
+}
+
+th {
+    text-align: left;
 }
 
 .container {
@@ -194,4 +213,71 @@ label {
     top: -8px;
     right: 0;
     width: 1rem;
+}
+
+/* GAME */
+.game .container p {
+    text-align: center;
+}
+
+.game .game-container li {
+    color: var(--red);
+}
+
+.game .game-container li.valid {
+    color: var(--green);
+}
+
+.game .answer-container label {
+    display: block;
+}
+
+.game .answer-container input {
+    display: none;
+}
+
+.game .answer-container .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+}
+
+.game .answer-container .answer {
+    list-style: none;
+    text-align: center;
+    background-color: var(--light);
+    border-radius: var(--radius);
+    border: solid 3px var(--dark);
+    padding: 1rem;
+    margin: .2rem;
+    transition: border-color var(--transition);
+}
+
+.game .answer-container input:checked + label {
+    border-color: var(--blue);
+}
+
+.leaderboard-container {
+    margin-bottom: 2rem;
+}
+
+.leaderboard-container h2 {
+    text-align: center;
+}
+
+.leaderboard-container td:first-child {
+    width: 20%;
+}
+
+.leaderboard-container td:last-child {
+    width: 15%;
+}
+
+.leaderboard-container .leaderboard td {
+    padding: .2rem;
+}
+
+.leaderboard-container .leaderboard .first,
+.leaderboard-container .leaderboard .draw {
+    background-color: var(--red);
 }
