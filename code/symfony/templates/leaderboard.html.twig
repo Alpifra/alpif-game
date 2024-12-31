@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alpif Game{% endblock %}
+
+{% block body %}
+<div class="main leaderboard" data-controller="game">
+    <div class="container leaderboard-container">
+        <h2>LEADERBOARD</h2>
+        <table cellspacing="0" cellpadding="0" class="leaderboard">
+            <tr>
+                <th>Position</th>
+                <th>Joueur</th>
+                <th>Score</th>
+                {% if currentPlayer.master %}
+                    <th>+</th>
+                    <th>-</th>
+                {% endif %}
+            </tr>
+            {% for index, player in players %}
+            <tr class="{{ index == 0 ? 'first' : null }} {{ players[0].score == player.score ? 'draw' : null }}">
+                <td class="leaderboard-position">{{ index + 1 }}
+                <td class="leaderboard-username">
+                    <img src="/img{{ player.avatar.value }}" />
+                    {{ player.username }}
+                </td>
+                <td class="leaderboard-score">{{ player.score }}</td>
+                {% if currentPlayer.master %}
+                    <td><span class="change-score" data-action="click->game#increase" data-player="{{ player.id }}">+</span></td>
+                    <td><span class="change-score" data-action="click->game#decrease" data-player="{{ player.id }}">-</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

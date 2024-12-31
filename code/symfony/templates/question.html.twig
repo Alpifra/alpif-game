@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuestionController!{% endblock %}
+{% block title %}Alpif Game{% endblock %}
 
 {% block body %}
 
@@ -53,8 +53,11 @@
             {% for index, player in players %}
             <tr class="{{ index == 0 ? 'first' : null }} {{ players[0].score == player.score ? 'draw' : null }}">
                 <td class="leaderboard-position">{{ index + 1 }}
-                <td class="leaderboard-username">{{ player.username }}</td>
-                <td class="leaderboard-username">{{ player.score }}</td>
+                <td class="leaderboard-username">
+                    <img src="/img{{ player.avatar.value }}" />
+                    {{ player.username }}
+                </td>
+                <td class="leaderboard-score">{{ player.score }}</td>
             </tr>
             {% endfor %}
         </table>
