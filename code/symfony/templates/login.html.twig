@@ -10,7 +10,7 @@
         <p>Qui va devenir le GOAT de 2024 ?</p>
     </div>
     <div class="container login-container">
-        {{ form_start(formJoin, { action: path('app_join_session') }) }}
+        {{ form_start(formJoin, { action: path('app_join_session'), attr: { novalidate: true } }) }}
         <div class="login-avatar-select">
             <div
                 class="login-avatar"
