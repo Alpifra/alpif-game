@@ -3,17 +3,14 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
 
     static values = {
+        wsEndpoint: String,
         avatar: String,
         username: String,
+        url: String,
     }
 
     connect() {
-        const avatar = this.element.dataset.avatar;
-        const username = this.element.dataset.username;
-
-        const socket = new WebSocket('ws://localhost:8080/lobby');
-        this.avatar = avatar;
-        this.username = username
+        const socket = new WebSocket(this.wsEndpointValue + '/lobby');
 
         socket.onmessage = (event) => {
             if (event.data === 'start') {
@@ -24,12 +21,15 @@ export default class extends Controller {
         };
 
         setTimeout(() => {
-            socket.send(JSON.stringify({ avatar: avatar, username: username }));
+            socket.send(JSON.stringify({
+                avatar: this.avatarValue,
+                username: this.usernameValue 
+            }));
         }, 500);
     }
 
     start() {
-        const socket = new WebSocket('ws://localhost:8080/lobby');
+        const socket = new WebSocket(this.wsEndpointValue + '/lobby');
 
         setTimeout(() => {
             socket.send('start');

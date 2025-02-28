@@ -2,8 +2,12 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
 
+    static values = {
+        wsEndpoint: String,
+    }
+
     connect() {
-        const socket = new WebSocket('ws://localhost:8080/game');
+        const socket = new WebSocket(this.wsEndpointValue + '/game');
         const form = document.querySelector('form');
 
         socket.onmessage = (event) => {
@@ -17,7 +21,7 @@ export default class extends Controller {
     }
 
     validate() {
-        const socket = new WebSocket('ws://localhost:8080/game');
+        const socket = new WebSocket(this.wsEndpointValue + '/game');
 
         setTimeout(() => {
             socket.send('validate');
@@ -26,7 +30,7 @@ export default class extends Controller {
 
     increase(event) {
         const player = event.target.dataset.player;
-        const socket = new WebSocket('ws://localhost:8080/game');
+        const socket = new WebSocket(this.wsEndpointValue + '/game');
 
         fetch(`/player/${player}/increase`, {
             method: 'POST',
@@ -45,7 +49,7 @@ export default class extends Controller {
 
     decrease(event) {
         const player = event.target.dataset.player;
-        const socket = new WebSocket('ws://localhost:8080/game');
+        const socket = new WebSocket(this.wsEndpointValue + '/game');
 
         fetch(`/player/${player}/decrease`, {
             method: 'POST',

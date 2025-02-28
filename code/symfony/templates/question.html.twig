@@ -4,7 +4,11 @@
 
 {% block body %}
 
-<div class="main game" data-controller="game">
+<div
+    class="main game"
+    data-controller="game"
+    data-game-ws-endpoint-value="{{ websocket_endpoint }}"
+>
     <div class="title game-title">
         <h1>Question {{ question.position }}</h1>
     </div>

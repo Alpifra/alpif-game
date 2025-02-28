@@ -3,7 +3,11 @@
 {% block title %}Alpif Game{% endblock %}
 
 {% block body %}
-<div class="main leaderboard" data-controller="game">
+<div
+    class="main leaderboard"
+    data-controller="game"
+    data-game-ws-endpoint-value="{{ websocket_endpoint }}"
+>
     <div class="container leaderboard-container">
         <h2>LEADERBOARD</h2>
         <table cellspacing="0" cellpadding="0" class="leaderboard">

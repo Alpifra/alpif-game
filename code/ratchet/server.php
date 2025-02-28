@@ -4,8 +4,8 @@ use Dotenv\Dotenv;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-    // Make sure composer dependencies have been installed
-    require __DIR__ . '/vendor/autoload.php';
+// Make sure composer dependencies have been installed
+require __DIR__ . '/vendor/autoload.php';
 
 /**
  * chat.php

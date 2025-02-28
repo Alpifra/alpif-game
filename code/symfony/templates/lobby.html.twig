@@ -13,8 +13,9 @@
     <div
         class="container lobby-container"
         data-controller="lobby"
-        data-username="{{ currentPlayer.username }}"
-        data-avatar="{{ currentPlayer.avatar.value }}"
+        data-lobby-username-value="{{ currentPlayer.username }}"
+        data-lobby-avatar-value="{{ currentPlayer.avatar.value }}"
+        data-lobby-ws-endpoint-value="{{ websocket_endpoint }}"
     >
         <div class="slots">
         {% for index in range(0, 17) %}
