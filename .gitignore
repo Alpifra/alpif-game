@@ -17,3 +17,7 @@ code/symfony/phpunit.xml
 code/symfony/phpunit.xml
 code/symfony/public/assets/
 code/symfony/assets/vendor/
+
+# Node
+code/node/.env
+code/node/node_modules/

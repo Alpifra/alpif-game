@@ -1,5 +1,13 @@
 
 services:
+  websocket:
+    build:
+      context: ../
+      dockerfile: ./docker/websocket/Dockerfile
+    ports:
+      - "4000:4000"
+    volumes:
+      - "../code/node:/usr/src/app"
 ###> doctrine/doctrine-bundle ###
   database:
     image: mysql:5.7.29
