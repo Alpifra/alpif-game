@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { io } from "socket.io-client";
 
 export default class extends Controller {
 
@@ -10,30 +11,28 @@ export default class extends Controller {
     }
 
     connect() {
-        const socket = new WebSocket(this.wsEndpointValue + '/lobby');
+        const socket = io(this.wsEndpointValue);
 
-        socket.onmessage = (event) => {
-            if (event.data === 'start') {
+        socket.emit('joinRoom', 'lobby');
+
+        socket.emit('messageLobby', JSON.stringify({
+            avatar: this.avatarValue,
+            username: this.usernameValue 
+        }));
+
+        socket.on('messageLobby', (data) => {
+            if (data === 'start') {
                 this.startGame();
             } else {
-                this.updateLobby(event.data);
+                this.updateLobby(data);
             }
-        };
-
-        setTimeout(() => {
-            socket.send(JSON.stringify({
-                avatar: this.avatarValue,
-                username: this.usernameValue 
-            }));
-        }, 500);
+        });
     }
 
     start() {
-        const socket = new WebSocket(this.wsEndpointValue + '/lobby');
+        const socket = io(this.wsEndpointValue);
 
-        setTimeout(() => {
-            socket.send('start');
-        }, 500);
+        socket.emit('messageLobby', 'start');
     }
 
     updateLobby(data) {

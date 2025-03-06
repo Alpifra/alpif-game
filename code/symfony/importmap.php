@@ -25,4 +25,19 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'socket.io-client' => [
+        'version' => '4.8.1',
+    ],
+    'engine.io-client' => [
+        'version' => '6.6.2',
+    ],
+    'socket.io-parser' => [
+        'version' => '4.2.4',
+    ],
+    '@socket.io/component-emitter' => [
+        'version' => '3.1.2',
+    ],
+    'engine.io-parser' => [
+        'version' => '5.2.3',
+    ],
 ];

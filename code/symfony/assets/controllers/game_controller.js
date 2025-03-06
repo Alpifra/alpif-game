@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { io } from "socket.io-client";
 
 export default class extends Controller {
 
@@ -7,30 +8,30 @@ export default class extends Controller {
     }
 
     connect() {
-        const socket = new WebSocket(this.wsEndpointValue + '/game');
+        const socket = io(this.wsEndpointValue);
         const form = document.querySelector('form');
 
-        socket.onmessage = (event) => {
+        socket.emit('joinRoom', 'game');
 
-            if (event.data === 'validate') {
+        socket.on('messageGame', (data) => {
+            console.log(data);
+            if (data === 'validate') {
                 form.requestSubmit();
-            } else if (event.data === 'refresh') {
+            } else if (data === 'refresh') {
                 location.reload();
             }
-        };
+        });
     }
 
     validate() {
-        const socket = new WebSocket(this.wsEndpointValue + '/game');
+        const socket = io(this.wsEndpointValue );
 
-        setTimeout(() => {
-            socket.send('validate');
-        }, 500);
+        socket.emit('messageGame', 'validate');
     }
 
     increase(event) {
         const player = event.target.dataset.player;
-        const socket = new WebSocket(this.wsEndpointValue + '/game');
+        const socket = io(this.wsEndpointValue );
 
         fetch(`/player/${player}/increase`, {
             method: 'POST',
@@ -41,15 +42,13 @@ export default class extends Controller {
         })
         .then(response => response.json())
         .then(() => {
-            setTimeout(() => {
-                socket.send('refresh');
-            }, 500);
+            socket.emit('messageGame', 'refresh');
         })
     }
 
     decrease(event) {
         const player = event.target.dataset.player;
-        const socket = new WebSocket(this.wsEndpointValue + '/game');
+        const socket = io(this.wsEndpointValue );
 
         fetch(`/player/${player}/decrease`, {
             method: 'POST',
@@ -60,9 +59,7 @@ export default class extends Controller {
         })
         .then(response => response.json())
         .then(() => {
-            setTimeout(() => {
-                socket.send('refresh');
-            }, 500);
+            socket.emit('messageGame', 'refresh');
         })
     }
 

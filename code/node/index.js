@@ -9,10 +9,17 @@ const io = new Server(httpServer, {
     }
 });
 
-io.on("connection", (socket) => {
-  console.log("hello")
+io.on('connection', (socket) => {
+
+  socket.on('joinRoom', (room) => socket.join(room) );
+
+  socket.on('messageLobby', (message) => {
+      io.to('lobby').emit('messageLobby', message);
+  });
+
+  socket.on('messageGame', (message) => {
+      io.to('game').emit('messageGame', message);
+  });
 });
 
 httpServer.listen(process.env.PORT);
-
-console.log(process.env.CLIENT_ENDPOINT, process.env.PORT);
