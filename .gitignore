@@ -17,6 +17,3 @@ code/symfony/phpunit.xml
 code/symfony/phpunit.xml
 code/symfony/public/assets/
 code/symfony/assets/vendor/
-
-# Ratchet
-code/ratchet/vendor/
