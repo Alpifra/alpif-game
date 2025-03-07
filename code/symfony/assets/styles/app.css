@@ -122,6 +122,7 @@ th {
 }
 
 .login-avatar-select {
+    user-select: none;
     position: relative;
     display: flex;
     justify-content: center;
