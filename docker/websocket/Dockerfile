@@ -6,4 +6,4 @@ COPY ../../code/node/package*.json ./
 RUN npm install
 
 EXPOSE 4000
-CMD ["sh", "-c", "npm install && node --env-file=.env index.js"]
+CMD ["sh", "-c", "npm install && node index.js"]
