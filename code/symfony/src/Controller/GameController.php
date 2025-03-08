@@ -22,7 +22,7 @@ class GameController extends AbstractController
     ) {}
 
     #[Route('/lobby/{hash}/question', name: 'app_question')]
-    public function index(
+    public function question(
         #[MapEntity(class: Session::class, mapping: ['hash' => 'hash'])]
         Session $session,
         Request $request,
@@ -59,6 +59,25 @@ class GameController extends AbstractController
         ]);
     }
 
+    #[Route('/lobby/{hash}/speed-test', name: 'app_speed_test')]
+    public function speedTest(
+        #[MapEntity(class: Session::class, mapping: ['hash' => 'hash'])]
+        Session $session,
+        Request $request,
+    ): Response {
+
+        $currentUsername = $request->cookies->get('player');
+        $currentPlayer = $this->playerRepository->findOneBy([
+            'session'  => $session->getId(),
+            'username' => $currentUsername
+        ]);
+
+        return $this->render('speed_test.html.twig', [
+            'session'       => $session,
+            'currentPlayer' => $currentPlayer,
+        ]);
+    }
+
     #[Route('/lobby/{hash}/next', name: 'app_next_question')]
     public function next(
         #[MapEntity(class: Session::class, mapping: ['hash' => 'hash'])]
@@ -86,6 +105,6 @@ class GameController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->index($session, $request, $question->getPosition());
+        return $this->question($session, $request, $question->getPosition());
     }
 }

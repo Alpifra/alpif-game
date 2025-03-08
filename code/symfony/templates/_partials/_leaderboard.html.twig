@@ -1,0 +1,24 @@
+<div class="container leaderboard-container">
+    <h2>CLASSEMENT</h2>
+    <table cellspacing="0" cellpadding="0" class="leaderboard">
+        <tr>
+            <th>Position</th>
+            <th>Joueur</th>
+            <th>Score</th>
+        </tr>
+        {% for index, player in players %}
+        <tr class="{{ index == 0 ? 'first' : null }} {{ players[0].score == player.score ? 'draw' : null }}">
+            <td class="leaderboard-position">{{ index + 1 }}
+            <td class="leaderboard-username">
+                <img src="/img{{ player.avatar.value }}" />
+                {{ player.username|length > 10 ? player.username|slice(0, 10) ~ '...' : player.username  }}
+            </td>
+            <td class="leaderboard-score">{{ player.score }}</td>
+            {% if currentPlayer.master %}
+                <td><span class="change-score" data-action="click->game#increase" data-player="{{ player.id }}">+</span></td>
+                <td><span class="change-score" data-action="click->game#decrease" data-player="{{ player.id }}">-</span></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alpif Game{% endblock %}
+
+{% block body %}
+
+<div
+    class="main speed"
+    data-controller="game"
+    data-game-lobby-hash-value="{{ session.hash }}"
+    data-game-ws-endpoint-value="{{ websocket_endpoint }}"
+>
+    {% if currentPlayer.master %}
+        <div class="container speed-player-container">
+            -
+        </div>
+        <div class="container">
+            <button data-action="click->game#switch" data-target="leaderboard">
+                CLASSEMENT
+            </button>
+        </div>
+    {% else %}
+        <div
+            class="container speed-answer-container"
+            data-action="click->game#buzz"
+            data-player="{{ currentPlayer.username }}"
+        >
+            BUZZER&nbsp;!
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

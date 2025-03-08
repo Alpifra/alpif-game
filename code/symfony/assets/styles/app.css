@@ -283,9 +283,27 @@ th {
     clip-path: circle(50% at 50% 50%);
 }
 
+.leaderboard-container .leaderboard .leaderboard-position,
+.leaderboard-container .leaderboard .leaderboard-score {
+    text-align: center;
+}
+
 .leaderboard-container .leaderboard .first,
 .leaderboard-container .leaderboard .draw {
     background-color: var(--red);
+    border: solid 2px var(--red);
+}
+
+.leaderboard-container .leaderboard .first td:first-child,
+.leaderboard-container .leaderboard .draw td:first-child {
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.leaderboard-container .leaderboard .first td:last-child,
+.leaderboard-container .leaderboard .draw td:last-child {
+    border-top-right-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
 
 .leaderboard-container .leaderboard .change-score {
@@ -297,4 +315,16 @@ th {
     border-radius: var(--radius);
     background-color: var(--white);
     cursor: pointer;
+}
+
+.speed .speed-answer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    border: solid 2px var(--blue);
+}
+
+.speed .speed-answer-container.active {
+    background-color: var(--blue);
 }
