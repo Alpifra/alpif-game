@@ -32,6 +32,15 @@ class Player
     #[ORM\Column(options: ['default' => 0])]
     private int $score = 0;
 
+    /**
+     * Ids of the questions already scored for this player, to keep the
+     * scoring idempotent when an answer is submitted more than once.
+     *
+     * @var int[]
+     */
+    #[ORM\Column]
+    private array $answeredQuestions = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +102,20 @@ class Player
     public function setScore(int $score): static
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    public function hasAnswered(Question $question): bool
+    {
+        return in_array($question->getId(), $this->answeredQuestions, true);
+    }
+
+    public function markAsAnswered(Question $question): static
+    {
+        if (!$this->hasAnswered($question)) {
+            $this->answeredQuestions[] = $question->getId();
+        }
 
         return $this;
     }

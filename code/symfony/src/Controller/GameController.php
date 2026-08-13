@@ -98,9 +98,14 @@ class GameController extends AbstractController
             }
         }
 
-        if ($valid) {
-            $player = $this->playerRepository->find($request->request->get('player'));
-            $player->setScore($player->getScore() + 1);
+        $player = $this->playerRepository->find($request->request->get('player'));
+
+        if ($player && !$player->hasAnswered($question)) {
+            if ($valid) {
+                $player->setScore($player->getScore() + 1);
+            }
+
+            $player->markAsAnswered($question);
 
             $this->entityManager->persist($player);
             $this->entityManager->flush();
