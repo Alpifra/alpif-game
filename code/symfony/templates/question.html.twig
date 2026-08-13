@@ -16,7 +16,7 @@
     {% if currentPlayer.master %}
         <div class="container game-container">
             <p>{{ question.content['question'] }}</p>
-            <form action="/lobby/{{ session.hash }}/next">
+            <form action="/lobby/{{ session.hash }}/next" method="post">
                 <input type="hidden" name="question" value="{{ question.id }}">
                 <input type="hidden" name="player" value="{{ currentPlayer.id }}">
             </form>
@@ -31,7 +31,7 @@
         </div>
     {% else %}
         <div class="answer-container">
-            <form action="/lobby/{{ session.hash }}/next">
+            <form action="/lobby/{{ session.hash }}/next" method="post">
                 <div class="answers">
                     {% for key, answer in question.answers %}
                         <input type="radio" name="answer" id="answer{{ key }}" value="{{ answer.answer }}">

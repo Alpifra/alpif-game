@@ -26,10 +26,11 @@ class GameController extends AbstractController
         #[MapEntity(class: Session::class, mapping: ['hash' => 'hash'])]
         Session $session,
         Request $request,
-        int $position = 0,
     ): Response {
 
-        $question = $this->questionRepository->findOneByPosition($position);
+        $question = $this->questionRepository->findOneByPosition(
+            $request->query->getInt('position')
+        );
 
         if (!$question) {
             return $this->redirectToRoute('app_leaderboard', ['hash' => $session->getHash()]);
@@ -78,16 +79,16 @@ class GameController extends AbstractController
         ]);
     }
 
-    #[Route('/lobby/{hash}/next', name: 'app_next_question')]
+    #[Route('/lobby/{hash}/next', name: 'app_next_question', methods: ['POST'])]
     public function next(
         #[MapEntity(class: Session::class, mapping: ['hash' => 'hash'])]
         Session $session,
         Request $request,
     ): Response {
 
-        $question = $this->questionRepository->find($request->get('question'));
+        $question = $this->questionRepository->find($request->request->get('question'));
         $answers = $question->getAnswers();
-        $answer = $request->get('answer');
+        $answer = $request->request->get('answer');
         $valid = false;
 
         foreach ($answers as $a) {
@@ -98,13 +99,16 @@ class GameController extends AbstractController
         }
 
         if ($valid) {
-            $player = $this->playerRepository->find($request->get('player'));
+            $player = $this->playerRepository->find($request->request->get('player'));
             $player->setScore($player->getScore() + 1);
 
             $this->entityManager->persist($player);
             $this->entityManager->flush();
         }
 
-        return $this->question($session, $request, $question->getPosition());
+        return $this->redirectToRoute('app_question', [
+            'hash'     => $session->getHash(),
+            'position' => $question->getPosition(),
+        ]);
     }
 }
